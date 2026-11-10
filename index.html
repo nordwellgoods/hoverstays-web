@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Online booking, text reminders and missed-call texts for small businesses, set up and run for you. Hoverstays, Rosario, Argentina.">
+<title>Hoverstays</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Public+Sans:wght@400;500;600&display=swap">
+<style>
+*{{box-sizing:border-box}}body{{margin:0}}img{{max-width:100%}}
+/* Layout: página de estudio chico, texto a la izquierda, un solo momento fuerte: el teléfono que cuenta la llamada perdida que termina en turno. */
+:root{
+  --paper:#ffffff; --ink:#161616; --soft:#5b5b58; --rule:#e6e5e1; --tint:#f5f4f1;
+  --blue:#1f47d6; --bubble-in:#ecebe7; --bubble-out:#1f47d6; --bubble-out-ink:#ffffff;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --sans:"Public Sans",ui-sans-serif,system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#111111; --ink:#f1f0ec; --soft:#a3a29d; --rule:#2b2b29; --tint:#1a1a19;
+  --blue:#8aa3ff; --bubble-in:#262624; --bubble-out:#3355e0; --bubble-out-ink:#ffffff; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#111111; --ink:#f1f0ec; --soft:#a3a29d; --rule:#2b2b29; --tint:#1a1a19;
+  --blue:#8aa3ff; --bubble-in:#262624; --bubble-out:#3355e0; --bubble-out-ink:#ffffff; color-scheme:dark}
+body{background:var(--paper);color:var(--ink);font:17px/1.6 var(--sans)}
+body.es .en, body:not(.es) .es{display:none}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+a{color:inherit}
+p{margin:0}
+h1,h2{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1{font-size:clamp(40px,6.4vw,76px);line-height:1.02}
+h1 em,h2 em{font-style:italic;color:var(--blue)}
+h2{font-size:clamp(28px,3.6vw,40px);line-height:1.12}
+
+/* barra */
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:22px;border-bottom:1px solid var(--rule)}
+.word{font:500 24px/1 var(--serif);letter-spacing:-.01em;text-decoration:none}
+.bar nav{display:flex;align-items:center;gap:20px;font-size:15px}
+.bar nav a{text-decoration:none;color:var(--soft)}
+.bar nav a:hover{color:var(--ink)}
+.lang{display:flex;gap:2px;font-size:14px}
+.lang button{border:0;background:none;font:inherit;color:var(--soft);padding:4px 6px;cursor:pointer;border-radius:4px}
+.lang button[aria-pressed="true"]{color:var(--ink);text-decoration:underline;text-underline-offset:4px}
+button:focus-visible,a:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+
+/* héroe */
+.hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:64px;align-items:center;padding-block:72px 88px}
+.hero-text{display:grid;gap:28px;align-content:start}
+.hero-text .lede{font-size:20px;line-height:1.55;color:var(--soft);max-width:34ch}
+.cta{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center}
+.cta a.main{background:var(--ink);color:var(--paper);text-decoration:none;padding:14px 22px;border-radius:999px;font-weight:500}
+.cta a.sub{font-size:15px;color:var(--soft);text-underline-offset:4px}
+
+/* teléfono */
+.phone{justify-self:center;width:100%;max-width:330px;border:1px solid var(--rule);border-radius:38px;padding:12px;background:var(--tint)}
+.screen{background:var(--paper);border-radius:28px;height:600px;display:flex;flex-direction:column;overflow:hidden}
+.screen-top{padding:16px 18px 12px;border-bottom:1px solid var(--rule);text-align:center}
+.screen-top b{display:block;font-weight:600;font-size:15px}
+.screen-top small{color:var(--soft);font-size:12px}
+.thread{flex:1;padding:16px 14px;display:flex;flex-direction:column;gap:10px;overflow:hidden;justify-content:flex-end}
+.msg{max-width:84%;padding:9px 13px;border-radius:18px;font-size:14px;line-height:1.38;transition:opacity .35s,transform .35s}
+.thread.anim .msg:not(.on){opacity:0;transform:translateY(8px)}
+.msg.in{align-self:flex-start;background:var(--bubble-in);border-bottom-left-radius:6px}
+.msg.out{align-self:flex-end;background:var(--bubble-out);color:var(--bubble-out-ink);border-bottom-right-radius:6px}
+.msg.sys{align-self:center;background:none;color:var(--soft);font-size:12px;padding:2px 0;text-align:center}
+.msg.sys b{color:#c0392b;font-weight:600}
+.msg u{text-underline-offset:2px}
+.phone-foot{display:flex;justify-content:space-between;align-items:center;padding:12px 6px 4px;font-size:13px;color:var(--soft)}
+.phone-foot button{border:1px solid var(--rule);background:var(--paper);color:var(--ink);font:500 13px/1 var(--sans);padding:8px 12px;border-radius:999px;cursor:pointer}
+
+/* secciones */
+section{padding-block:80px;border-top:1px solid var(--rule)}
+.split{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:64px}
+.split > *{min-width:0}
+.list{margin:0;padding:0;list-style:none;border-top:1px solid var(--ink)}
+.list li{display:grid;grid-template-columns:minmax(0,13em) minmax(0,1fr);gap:24px;padding-block:18px;border-bottom:1px solid var(--rule)}
+.list li b{font-weight:600}
+.list li span{color:var(--soft)}
+
+.story{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:64px;align-items:start}
+.story > *{min-width:0}
+.story .big{font-family:var(--serif);font-size:clamp(24px,2.8vw,32px);line-height:1.35;max-width:30ch}
+.story .big em{font-style:italic;color:var(--blue)}
+.facts{margin-top:24px;color:var(--soft);font-size:15px;max-width:52ch}
+
+.letter{max-width:640px;display:grid;gap:20px;font-family:var(--serif);font-size:21px;line-height:1.6}
+.letter .sig{font-style:italic}
+.letter .sig small{display:block;font:15px/1.5 var(--sans);font-style:normal;color:var(--soft);margin-top:4px}
+
+.agency{background:var(--tint);border-radius:20px;padding:36px clamp(20px,4vw,48px);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:center}
+.agency p{color:var(--soft);max-width:60ch;margin-top:10px}
+.agency h2{font-size:clamp(24px,2.6vw,30px)}
+.cta-link{font-weight:500;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:2px;white-space:nowrap;justify-self:start}
+
+.contact{display:grid;gap:22px;justify-items:start}
+.contact .mail{font-family:var(--serif);font-size:clamp(26px,4.4vw,48px);text-decoration:none;border-bottom:1px solid var(--rule);user-select:all;overflow-wrap:anywhere;max-width:100%}
+.contact p{color:var(--soft);max-width:48ch}
+footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding-block:28px;border-top:1px solid var(--rule);font-size:14px;color:var(--soft)}
+
+@media (max-width:820px){
+  .hero,.split,.story{grid-template-columns:1fr;gap:40px}
+  .hero{padding-block:48px 64px}
+  section{padding-block:56px}
+  .list li{grid-template-columns:1fr;gap:4px}
+  .agency{grid-template-columns:1fr}
+  .bar nav a.hide-s{display:none}
+}
+@media (prefers-reduced-motion:reduce){.msg{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="bar">
+    <a class="word" href="#">Hoverstays</a>
+    <nav>
+      <a class="hide-s" href="#how"><span class="en">How it works</span><span class="es">Cómo funciona</span></a>
+      <a class="hide-s" href="#contact"><span class="en">Contact</span><span class="es">Contacto</span></a>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" id="b-en" aria-pressed="true">EN</button>
+        <button type="button" id="b-es" aria-pressed="false">ES</button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div class="hero-text">
+      <h1><span class="en">The phone rings while your hands are <em>busy</em>.</span><span class="es">El teléfono suena justo cuando tienes las manos <em>ocupadas</em>.</span></h1>
+      <p class="lede"><span class="en">We set up online booking and text messages for small businesses, so that client still ends up on your calendar. Then we keep it running for you.</span><span class="es">Armamos reservas online y mensajes de texto para negocios chicos, para que ese cliente igual termine en tu agenda. Después lo mantenemos funcionando por ti.</span></p>
+      <div class="cta">
+        <a class="main" href="#contact"><span class="en">Ask for a sample</span><span class="es">Pide una muestra</span></a>
+        <a class="sub" href="muestra.html" target="_blank" rel="noopener"><span class="en">See what your clients would see</span><span class="es">Mira lo que verían tus clientes</span></a>
+      </div>
+    </div>
+
+    <div class="phone" aria-label="Example: a missed call that ends in a booking">
+      <div class="screen">
+        <div class="screen-top"><b>Dana</b><small><span class="en">Example · Lily Nails &amp; Spa</span><span class="es">Ejemplo · Lily Nails &amp; Spa</span></small></div>
+        <div class="thread" id="thread">
+          <div class="msg sys"><b><span class="en">Missed call</span><span class="es">Llamada perdida</span></b> · 2:14 PM</div>
+          <div class="msg out"><span class="en">Hi! This is Lily Nails. Sorry we missed your call, we're with a client right now. You can book here: <u>lilynails.com/book</u></span><span class="es">¡Hola! Te escribimos de Lily Nails. Perdón por no atender, estamos con una clienta. Puedes reservar aquí: <u>lilynails.com/book</u></span></div>
+          <div class="msg sys"><span class="en">Dana booked online · 2:16 PM</span><span class="es">Dana reservó online · 2:16 PM</span></div>
+          <div class="msg out"><span class="en">You're booked at Lily Nails for a spa pedicure on Thursday at 10:45 AM. Need to change it? <u>Manage</u></span><span class="es">Tu cita en Lily Nails quedó para el jueves a las 10:45 AM, pedicura spa. ¿Necesitas cambiarla? <u>Gestionar</u></span></div>
+          <div class="msg sys"><span class="en">Wednesday · 6:00 PM</span><span class="es">Miércoles · 6:00 PM</span></div>
+          <div class="msg out"><span class="en">Just a reminder: tomorrow at 10:45 for your spa pedicure. Reply 1 to confirm or 2 to change it.</span><span class="es">Te recordamos tu pedicura mañana a las 10:45. Responde 1 para confirmar o 2 para cambiarla.</span></div>
+          <div class="msg in">1</div>
+          <div class="msg out"><span class="en">Perfect, see you Thursday at 10:45!</span><span class="es">¡Perfecto, te esperamos el jueves a las 10:45!</span></div>
+        </div>
+      </div>
+      <div class="phone-foot"><span><span class="en">Every text here is sent for you</span><span class="es">Cada mensaje sale solo</span></span><button type="button" id="replay"><span class="en">Replay</span><span class="es">Repetir</span></button></div>
+    </div>
+  </div>
+
+  <section id="how">
+    <div class="split">
+      <h2><span class="en">What we set up, and <em>keep</em> running</span><span class="es">Lo que armamos y <em>mantenemos</em></span></h2>
+      <ul class="list">
+        <li><b><span class="en">A booking page</span><span class="es">Página de reservas</span></b><span><span class="en">Your services, prices and hours, in English and Spanish. No account or password for your clients.</span><span class="es">Tus servicios, precios y horarios, en inglés y en español. Tus clientes no necesitan cuenta ni contraseña.</span></span></li>
+        <li><b><span class="en">Your calendar</span><span class="es">Tu calendario</span></b><span><span class="en">Each booking lands in your Google Calendar and in your client's.</span><span class="es">Cada reserva aparece en tu Google Calendar y en el de tu cliente.</span></span></li>
+        <li><b><span class="en">Reminders</span><span class="es">Recordatorios</span></b><span><span class="en">A confirmation when they book and a text the day before. They answer 1 or 2.</span><span class="es">Una confirmación al reservar y un mensaje el día antes. Responden 1 o 2.</span></span></li>
+        <li><b><span class="en">Missed calls</span><span class="es">Llamadas perdidas</span></b><span><span class="en">If you can't pick up during business hours, the caller gets your booking link by text.</span><span class="es">Si no puedes atender en horario de trabajo, quien llamó recibe tu link de reservas por texto.</span></span></li>
+        <li><b><span class="en">Reviews</span><span class="es">Reseñas</span></b><span><span class="en">The day after the visit, a thank-you with a link to your Google reviews.</span><span class="es">El día después de la visita, un agradecimiento con el link a tus reseñas de Google.</span></span></li>
+        <li><b><span class="en">In your name</span><span class="es">A tu nombre</span></b><span><span class="en">Your calendar, your accounts and your client list stay yours.</span><span class="es">Tu calendario, tus cuentas y tu lista de clientes siguen siendo tuyos.</span></span></li>
+        <li><b><span class="en">Anything else</span><span class="es">Lo que necesites</span></b><span><span class="en">Cost tracking, reports, whatever your business uses. We build it to fit you, within the same plan.</span><span class="es">Seguimiento de costos, reportes, lo que use tu negocio. Lo armamos a tu medida, dentro del mismo plan.</span></span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="story">
+      <h2><span class="en">Where it started</span><span class="es">Dónde empezó</span></h2>
+      <div>
+        <p class="big"><span class="en">Uniq is a hair salon in Rosario. Since March 2026, <em>more than half</em> of its appointments come in online, and the phone has gone quiet.</span><span class="es">Uniq es una peluquería de Rosario. Desde marzo de 2026, <em>más de la mitad</em> de sus turnos entran online, y el teléfono casi no suena.</span></p>
+        <p class="facts"><span class="en">The owner gets back about two hours a day, roughly two more haircuts. We built the same system you'd get.</span><span class="es">El dueño recupera unas dos horas por día, más o menos dos cortes más. Es el mismo sistema que armamos para ti.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="letter">
+      <p><span class="en">Most booking software hands you a login and a setup guide. We do it the other way around: we build your page from what's already on your website, show it to you working, and change it until it feels like yours.</span><span class="es">La mayoría de los sistemas de reservas te dan un usuario y un manual. Nosotros lo hacemos al revés: armamos tu página con lo que ya está en tu web, te la mostramos funcionando y la cambiamos hasta que la sientas tuya.</span></p>
+      <p><span class="en">After that, if something needs fixing, you write to us and the same person answers. Everything happens by email, so you never have to schedule a call.</span><span class="es">Después, si algo hay que arreglar, nos escribes y te responde la misma persona. Todo es por correo, nunca tienes que agendar una llamada.</span></p>
+      <p class="sig">Santino<small><span class="en">Hoverstays · Rosario, Argentina · Hablamos español</span><span class="es">Hoverstays · Rosario, Argentina · We speak English</span></small></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="agency">
+      <div>
+        <h2><span class="en">Do you build websites for local businesses?</span><span class="es">¿Haces webs para negocios locales?</span></h2>
+        <p><span class="en">We can run booking for your clients under your brand. You keep the client; we handle the setup and the upkeep.</span><span class="es">Podemos manejar las reservas de tus clientes con tu marca. El cliente sigue siendo tuyo; nosotros hacemos el armado y el mantenimiento.</span></p>
+      </div>
+      <a class="cta-link" href="#contact"><span class="en">Write to us →</span><span class="es">Escríbenos →</span></a>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact">
+      <h2><span class="en">Send us your business name.<br>We'll make you a <em>sample</em>.</span><span class="es">Mándanos el nombre de tu negocio.<br>Te armamos una <em>muestra</em>.</span></h2>
+      <span class="mail">santino@hoverstays.com</span>
+      <p><span class="en">Tell us your business or your website. We reply by email, usually the same day.</span><span class="es">Dinos tu negocio o tu web. Respondemos por correo, normalmente el mismo día.</span></p>
+    </div>
+  </section>
+
+  <footer><span>Hoverstays</span><span>Rosario, Argentina</span></footer>
+</div>
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var l='en';
+  try{var g=localStorage.getItem('hvlang');if(g==='en'||g==='es')l=g;else if((navigator.language||'').toLowerCase().indexOf('es')===0)l='es';}catch(e){}
+  function set(x){l=x;document.body.classList.toggle('es',x==='es');document.documentElement.lang=x;
+    $('b-en').setAttribute('aria-pressed',x==='en');$('b-es').setAttribute('aria-pressed',x==='es');
+    try{localStorage.setItem('hvlang',x);}catch(e){}}
+  $('b-en').onclick=function(){set('en')};$('b-es').onclick=function(){set('es')};set(l);
+
+  var msgs=[].slice.call(document.querySelectorAll('#thread .msg')),timers=[];
+  var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function play(){
+    timers.forEach(clearTimeout);timers=[];
+    if(still)return;
+    $('thread').classList.add('anim');msgs.forEach(function(m){m.classList.remove('on')});
+    msgs.forEach(function(m,i){timers.push(setTimeout(function(){m.classList.add('on')},500+i*1100))});
+  }
+  $('replay').onclick=play;
+  play();
+})();
+</script>
+
+</body>
+</html>
