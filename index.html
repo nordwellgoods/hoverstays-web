@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Public+Sans:wght@400;500;600&display=swap">
 <style>
-*{{box-sizing:border-box}}body{{margin:0}}img{{max-width:100%}}
+*{box-sizing:border-box}body{margin:0}img{max-width:100%}
 /* Layout: página de estudio chico, texto a la izquierda, un solo momento fuerte: el teléfono que cuenta la llamada perdida que termina en turno. */
 :root{
   --paper:#ffffff; --ink:#161616; --soft:#5b5b58; --rule:#e6e5e1; --tint:#f5f4f1;
@@ -98,6 +98,7 @@ section{padding-block:80px;border-top:1px solid var(--rule)}
 footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding-block:28px;border-top:1px solid var(--rule);font-size:14px;color:var(--soft)}
 
 @media (max-width:820px){
+  .screen{height:auto}
   .hero,.split,.story{grid-template-columns:1fr;gap:40px}
   .hero{padding-block:48px 64px}
   section{padding-block:56px}
